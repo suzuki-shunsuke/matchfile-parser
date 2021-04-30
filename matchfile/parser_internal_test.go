@@ -5,7 +5,7 @@ import (
 )
 
 //nolint:funlen
-func TestController_match(t *testing.T) {
+func TestParser_Match(t *testing.T) {
 	t.Parallel()
 	data := []struct {
 		title        string
@@ -102,7 +102,7 @@ func TestController_match(t *testing.T) {
 			exp: true,
 		},
 	}
-	parser := Parser{}
+	parser := NewParser()
 	for _, d := range data {
 		d := d
 		t.Run(d.title, func(t *testing.T) {

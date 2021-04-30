@@ -88,21 +88,32 @@ func (matcher *equalMatcher) Match(p string) (bool, error) {
 	return p == matcher.pattern, nil
 }
 
-func NewMatcher(pattern, kind string) (Matcher, error) {
-	switch kind {
-	case "dir":
-		return &dirMatcher{dir: filepath.Clean(pattern) + "/"}, nil
-	case "regexp":
-		exp, err := regexp.Compile(pattern)
-		if err != nil {
-			return nil, fmt.Errorf("compile a regular expression: %w", err)
-		}
-		return &regexpMatcher{pattern: exp}, nil
-	case "glob":
-		return &globMatcher{pattern: pattern}, nil
-	case "equal":
-		return &equalMatcher{pattern: pattern}, nil
-	default:
+type NewMatcherFunc func(pattern string) (Matcher, error)
+
+func newDirMatcher(pattern string) (Matcher, error) {
+	return &dirMatcher{dir: filepath.Clean(pattern) + "/"}, nil
+}
+
+func newRegexpMatcher(pattern string) (Matcher, error) {
+	exp, err := regexp.Compile(pattern)
+	if err != nil {
+		return nil, fmt.Errorf("compile a regular expression: %w", err)
+	}
+	return &regexpMatcher{pattern: exp}, nil
+}
+
+func newGlobMatcher(pattern string) (Matcher, error) {
+	return &globMatcher{pattern: pattern}, nil
+}
+
+func newEqualMatcher(pattern string) (Matcher, error) {
+	return &equalMatcher{pattern: pattern}, nil
+}
+
+func (parser *Parser) NewMatcher(pattern, kind string) (Matcher, error) {
+	f, ok := parser.matcherFuncs[kind]
+	if !ok {
 		return nil, errors.New("invalid kind: " + kind)
 	}
+	return f(pattern)
 }

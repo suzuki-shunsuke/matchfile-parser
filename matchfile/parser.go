@@ -4,7 +4,28 @@ import (
 	"fmt"
 )
 
-type Parser struct{}
+type Parser struct {
+	matcherFuncs map[string]NewMatcherFunc
+}
+
+func NewParser() *Parser {
+	return &Parser{
+		matcherFuncs: map[string]NewMatcherFunc{
+			"dir":    newDirMatcher,
+			"regexp": newRegexpMatcher,
+			"glob":   newGlobMatcher,
+			"equal":  newEqualMatcher,
+		},
+	}
+}
+
+func (parser *Parser) AddMatcherFunc(kind string, fn NewMatcherFunc) {
+	if fn == nil {
+		delete(parser.matcherFuncs, kind)
+		return
+	}
+	parser.matcherFuncs[kind] = fn
+}
 
 func (parser *Parser) Match(checkedFiles []string, conditions []Condition) (bool, error) {
 	for _, checkedFile := range checkedFiles {

@@ -20,7 +20,7 @@ func (parser *Parser) GetConditions(conditionLines []string) ([]Condition, error
 		}
 		matchers := make([]Matcher, len(matchParam.Kinds))
 		for j, kind := range matchParam.Kinds {
-			matcher, err := NewMatcher(matchParam.Path, kind)
+			matcher, err := parser.NewMatcher(matchParam.Path, kind)
 			if err != nil {
 				return nil, fmt.Errorf("initialize a matcher: %w", err)
 			}
