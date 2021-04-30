@@ -69,7 +69,11 @@ type globMatcher struct {
 }
 
 func (matcher *globMatcher) Match(p string) (bool, error) {
-	return filepath.Match(matcher.pattern, p)
+	f, err := filepath.Match(matcher.pattern, p)
+	if err == nil {
+		return f, nil
+	}
+	return f, fmt.Errorf(`filepath.Match("%s", "%s"): %w`, matcher.pattern, p, err)
 }
 
 type regexpMatcher struct {

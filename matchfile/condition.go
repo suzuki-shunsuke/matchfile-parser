@@ -8,7 +8,11 @@ type Condition struct {
 }
 
 func (cond *Condition) Match(p string) (bool, error) {
-	return cond.matcher.Match(p)
+	s, err := cond.matcher.Match(p)
+	if err != nil {
+		return false, fmt.Errorf("check if the string '%s' matches: %w", p, err)
+	}
+	return s, nil
 }
 
 func (parser *Parser) ParseConditions(conditionLines []string) ([]Condition, error) {
