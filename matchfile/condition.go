@@ -11,7 +11,7 @@ func (cond *Condition) Match(p string) (bool, error) {
 	return cond.matcher.Match(p)
 }
 
-func (parser *Parser) GetConditions(conditionLines []string) ([]Condition, error) {
+func (parser *Parser) ParseConditions(conditionLines []string) ([]Condition, error) {
 	conditions := make([]Condition, 0, len(conditionLines))
 	for _, conditionLine := range conditionLines {
 		matchParam := parseLine(conditionLine)

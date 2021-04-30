@@ -107,7 +107,7 @@ func TestParser_Match(t *testing.T) {
 		d := d
 		t.Run(d.title, func(t *testing.T) {
 			t.Parallel()
-			conditions, err := parser.GetConditions(d.conditions)
+			conditions, err := parser.ParseConditions(d.conditions)
 			if err != nil {
 				t.Fatal(err)
 			}
