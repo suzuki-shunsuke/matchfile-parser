@@ -1,5 +1,10 @@
 # matchfile-parser
 
+[![Build Status](https://github.com/suzuki-shunsuke/matchfile-parser/workflows/test/badge.svg)](https://github.com/suzuki-shunsuke/matchfile-parser/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/suzuki-shunsuke/matchfile-parser)](https://goreportcard.com/report/github.com/suzuki-shunsuke/matchfile-parser)
+[![GitHub last commit](https://img.shields.io/github/last-commit/suzuki-shunsuke/matchfile-parser.svg)](https://github.com/suzuki-shunsuke/matchfile-parser)
+[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://raw.githubusercontent.com/suzuki-shunsuke/matchfile-parser/main/LICENSE)
+
 Parser of [matchfile](https://github.com/suzuki-shunsuke/matchfile) file format
 
 ## Format
