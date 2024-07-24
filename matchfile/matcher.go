@@ -36,7 +36,7 @@ func parseLine(line string) MatcherParam {
 }
 
 type Matcher interface {
-	Match(string) (bool, error)
+	Match(p string) (bool, error)
 }
 
 type combinedMatcher struct {
