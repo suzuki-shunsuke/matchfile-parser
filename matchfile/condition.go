@@ -13,6 +13,7 @@ func (cond *Condition) Match(p string) (bool, error) {
 		return false, fmt.Errorf("check if the string '%s' matches: %w", p, err)
 	}
 	return s, nil
+
 }
 
 func (parser *Parser) ParseConditions(conditionLines []string) ([]Condition, error) {
